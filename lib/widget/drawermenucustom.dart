@@ -122,7 +122,7 @@ class _DrawerMenuCustomState extends State<DrawerMenuCustom> {
             },
           ),
           const SizedBox(
-            height: 400,
+            height: 650,
           ),
           ListTile(
             title: Row(
