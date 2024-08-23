@@ -99,6 +99,7 @@ class _SalePageState extends State<SalePage> {
           Expanded(
             flex: 3,
             child: Container(
+              height: 1000,
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -109,414 +110,419 @@ class _SalePageState extends State<SalePage> {
                 ),
                 child: loadingitemdetail
                     ? const LoadingWidget()
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 20,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.caretRight,
-                                  size: 40,
-                                  color: UniSoundColor.rePurple,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    "ITEM DETAIL",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 50,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 30,
-                              left: 20,
-                            ),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  child: Text(
-                                    "SCANCODE :",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  width: 200,
-                                  height: 50,
-                                  decoration: BoxDecoration(
+                    : SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 20,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.caretRight,
+                                    size: 40,
                                     color: UniSoundColor.rePurple,
-                                    borderRadius: BorderRadius.circular(5),
-                                    border: Border.all(
-                                      width: 2,
-                                      color: UniSoundColor.black,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      "ITEM DETAIL",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 50,
+                                      ),
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 20,
-                                      right: 20,
-                                      bottom: 15,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 30,
+                                left: 20,
+                              ),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 20),
+                                    child: Text(
+                                      "SCANCODE :",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                    child: TextFormField(
-                                      textAlignVertical:
-                                          TextAlignVertical.center,
-                                      textAlign: TextAlign.start,
-                                      onChanged: (value) {
-                                        setState(() {});
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: 200,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: UniSoundColor.rePurple,
+                                      borderRadius: BorderRadius.circular(5),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: UniSoundColor.black,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 20,
+                                        right: 20,
+                                        bottom: 15,
+                                      ),
+                                      child: TextFormField(
+                                        textAlignVertical:
+                                            TextAlignVertical.center,
+                                        textAlign: TextAlign.start,
+                                        onChanged: (value) {
+                                          setState(() {});
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: "SKU TH",
+                                          hintStyle:
+                                              GoogleFonts.robotoCondensed(
+                                            textStyle: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          border: InputBorder.none,
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                        controller: scancodecontroller,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 30),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        if (scancodecontroller.text != '') {
+                                          setState(() {
+                                            loadingitemdetail = true;
+                                          });
+                                          getitem =
+                                              await scancodegetdetailController(
+                                                  scancodecontroller.text);
+                                          setpayment.itemmname =
+                                              getitem.itemmname;
+                                          setpayment.skujp = getitem.skujp;
+                                          setpayment.skuth = getitem.skuth;
+                                          setpayment.serialnum =
+                                              getitem.serialnum;
+                                          setState(() {
+                                            loadingitemdetail = false;
+                                          });
+                                        }
                                       },
-                                      decoration: InputDecoration(
-                                        hintText: "SKU TH",
-                                        hintStyle: GoogleFonts.robotoCondensed(
-                                          textStyle: const TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white,
-                                            fontSize: 15,
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: 90,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: scancodecontroller.text != ''
+                                              ? Colors.blue
+                                              : Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                            width: 3,
+                                            color: Colors.black38,
                                           ),
                                         ),
-                                        border: InputBorder.none,
+                                        child: Text(
+                                          "GET",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
                                       ),
-                                      keyboardType: TextInputType.number,
-                                      controller: scancodecontroller,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        if (scancodecontroller.text != '') {
+                                          scancodecontroller.text = '';
+                                          getitem = ItemdetailModel.newModel();
+                                          setpayment =
+                                              PaymentdetailModel.newModel();
+                                          clearInputPaymentPart();
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: 90,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: scancodecontroller.text != ''
+                                              ? const Color.fromARGB(
+                                                  255, 255, 101, 91)
+                                              : Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          border: Border.all(
+                                            width: 3,
+                                            color: Colors.black38,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "CLEAR",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 20,
+                              ),
+                              child: Container(
+                                width: 280,
+                                height: 280,
+                                decoration: getitem.imgurl == ''
+                                    ? BoxDecoration(
+                                        color: UniSoundColor.reGray,
+                                        borderRadius: BorderRadius.circular(5),
+                                      )
+                                    : BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(getitem.imgurl),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                child: getitem.imgurl == ''
+                                    ? const Icon(
+                                        FontAwesomeIcons.image,
                                         color: Colors.white,
-                                        fontSize: 15,
+                                        size: 50,
+                                      )
+                                    : Container(),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 20,
+                                bottom: 5,
+                                left: 20,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 15,
+                                    child: Text(
+                                      "NAME :  ",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 30),
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      if (scancodecontroller.text != '') {
-                                        setState(() {
-                                          loadingitemdetail = true;
-                                        });
-                                        getitem =
-                                            await scancodegetdetailController(
-                                                scancodecontroller.text);
-                                        setpayment.itemmname =
-                                            getitem.itemmname;
-                                        setpayment.skujp = getitem.skujp;
-                                        setpayment.skuth = getitem.skuth;
-                                        setpayment.serialnum =
-                                            getitem.serialnum;
-                                        setState(() {
-                                          loadingitemdetail = false;
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 90,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: scancodecontroller.text != ''
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                          width: 3,
-                                          color: Colors.black38,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "GET",
-                                        style: GoogleFonts.robotoCondensed(
-                                          color: UniSoundColor.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
+                                  Expanded(
+                                    flex: 85,
+                                    child: Text(
+                                      getitem.itemmname,
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      if (scancodecontroller.text != '') {
-                                        scancodecontroller.text = '';
-                                        getitem = ItemdetailModel.newModel();
-                                        setpayment =
-                                            PaymentdetailModel.newModel();
-                                        clearInputPaymentPart();
-                                        setState(() {});
-                                      }
-                                    },
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: 90,
-                                      height: 50,
-                                      decoration: BoxDecoration(
-                                        color: scancodecontroller.text != ''
-                                            ? const Color.fromARGB(
-                                                255, 255, 101, 91)
-                                            : Colors.grey,
-                                        borderRadius: BorderRadius.circular(5),
-                                        border: Border.all(
-                                          width: 3,
-                                          color: Colors.black38,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        "CLEAR",
-                                        style: GoogleFonts.robotoCondensed(
-                                          color: UniSoundColor.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 5,
+                                left: 20,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 15,
+                                    child: Text(
+                                      "SKU TH : ",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 20,
-                            ),
-                            child: Container(
-                              width: 280,
-                              height: 280,
-                              decoration: getitem.imgurl == ''
-                                  ? BoxDecoration(
-                                      color: UniSoundColor.reGray,
-                                      borderRadius: BorderRadius.circular(5),
-                                    )
-                                  : BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(getitem.imgurl),
-                                        fit: BoxFit.cover,
+                                  Expanded(
+                                    flex: 85,
+                                    child: Text(
+                                      getitem.skuth,
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
                                       ),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                              child: getitem.imgurl == ''
-                                  ? const Icon(
-                                      FontAwesomeIcons.image,
-                                      color: Colors.white,
-                                      size: 50,
-                                    )
-                                  : Container(),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 20,
-                              bottom: 5,
-                              left: 20,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 15,
-                                  child: Text(
-                                    "NAME :  ",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 85,
-                                  child: Text(
-                                    getitem.itemmname,
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 5,
+                                left: 20,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 15,
+                                    child: Text(
+                                      "SKU JP : ",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 5,
-                              left: 20,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 15,
-                                  child: Text(
-                                    "SKU TH : ",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                  Expanded(
+                                    flex: 85,
+                                    child: Text(
+                                      getitem.skujp,
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 85,
-                                  child: Text(
-                                    getitem.skuth,
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 5,
+                                left: 20,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 28,
+                                    child: Text(
+                                      "SERIAL NUMBER : ",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 5,
-                              left: 20,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 15,
-                                  child: Text(
-                                    "SKU JP : ",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                  Expanded(
+                                    flex: 72,
+                                    child: Text(
+                                      getitem.serialnum,
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 85,
-                                  child: Text(
-                                    getitem.skujp,
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 5,
+                                left: 20,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 15,
+                                    child: Text(
+                                      "PRICE : ",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 5,
-                              left: 20,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 28,
-                                  child: Text(
-                                    "SERIAL NUMBER : ",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                  Expanded(
+                                    flex: 85,
+                                    child: Text(
+                                      getitem.price == 0
+                                          ? ""
+                                          : "${fcomma.format(getitem.price)} THB",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 72,
-                                  child: Text(
-                                    getitem.serialnum,
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 5,
+                                left: 20,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 15,
+                                    child: Text(
+                                      "DETAIL : ",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 5,
-                              left: 20,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 15,
-                                  child: Text(
-                                    "PRICE : ",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
+                                  Expanded(
+                                    flex: 85,
+                                    child: Text(
+                                      getitem.itemdetail,
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: UniSoundColor.black,
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 85,
-                                  child: Text(
-                                    getitem.price == 0
-                                        ? ""
-                                        : "${fcomma.format(getitem.price)} THB",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 5,
-                              left: 20,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 15,
-                                  child: Text(
-                                    "DETAIL : ",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 85,
-                                  child: Text(
-                                    getitem.itemdetail,
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
               ),
             ),
@@ -524,6 +530,7 @@ class _SalePageState extends State<SalePage> {
           Expanded(
             flex: 3,
             child: Container(
+              height: 1000,
               decoration: BoxDecoration(
                 color: getitem.checkElement
                     ? UniSoundColor.wh
@@ -533,339 +540,302 @@ class _SalePageState extends State<SalePage> {
                   right: BorderSide(width: 2, color: UniSoundColor.reGray),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 30,
-                  bottom: 30,
-                  left: 30,
-                  right: 30,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: 20,
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            FontAwesomeIcons.caretRight,
-                            size: 40,
-                            color: UniSoundColor.rePurple,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              "PAYMENT DETAIL",
-                              style: GoogleFonts.robotoCondensed(
-                                color: getitem.checkElement
-                                    ? UniSoundColor.black
-                                    : UniSoundColor.reGray,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 50,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30,
+                    bottom: 30,
+                    left: 30,
+                    right: 30,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          bottom: 20,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.caretRight,
+                              size: 40,
+                              color: UniSoundColor.rePurple,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                "PAYMENT DETAIL",
+                                style: GoogleFonts.robotoCondensed(
+                                  color: getitem.checkElement
+                                      ? UniSoundColor.black
+                                      : UniSoundColor.reGray,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 50,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    !getitem.checkElement
-                        ? Container()
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 5, left: 20),
-                                child: Text(
-                                  "Sold Channel",
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: UniSoundColor.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: UniSoundColor.wh,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 5, bottom: 5, left: 25, right: 25),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 2,
-                                          color: UniSoundColor.black,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 10, left: 10),
-                                        child: SizedBox(
-                                          height: 40.0,
-                                          child: DropdownButton<String>(
-                                            hint: Text(
-                                              "Sold Channel",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                            isExpanded: true,
-                                            value: channelSaleListValue,
-                                            icon: Icon(
-                                              Icons.arrow_downward,
-                                              color: UniSoundColor.black,
-                                            ),
-                                            elevation: 16,
-                                            style: GoogleFonts.robotoCondensed(
-                                              color: UniSoundColor.black,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 18,
-                                            ),
-                                            underline: Container(
-                                              height: 2,
-                                              color: UniSoundColor.wh,
-                                            ),
-                                            onChanged: (String? value) {
-                                              setState(() {
-                                                channelSaleListValue = value!;
-                                                setpayment.channelsale =
-                                                    channelSaleListValue!;
-                                              });
-                                            },
-                                            items: channelSaleList
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 5, left: 20),
-                                child: Text(
-                                  "Advertising Channel",
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: UniSoundColor.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: UniSoundColor.wh,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 5, bottom: 5, left: 25, right: 25),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          width: 2,
-                                          color: UniSoundColor.black,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            right: 10, left: 10),
-                                        child: SizedBox(
-                                          height: 40.0,
-                                          child: DropdownButton<String>(
-                                            hint: Text(
-                                              "Advertising Channel",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                            isExpanded: true,
-                                            value: channelAdvListValue,
-                                            icon: Icon(
-                                              Icons.arrow_downward,
-                                              color: UniSoundColor.black,
-                                            ),
-                                            elevation: 16,
-                                            style: GoogleFonts.robotoCondensed(
-                                              color: UniSoundColor.black,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 18,
-                                            ),
-                                            underline: Container(
-                                              height: 2,
-                                              color: UniSoundColor.wh,
-                                            ),
-                                            onChanged: (String? value) {
-                                              setState(() {
-                                                channelAdvListValue = value!;
-                                                setpayment.channelads =
-                                                    channelAdvListValue!;
-                                              });
-                                            },
-                                            items: channelAdvList
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value,
-                                                child: Text(value),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 5, left: 20),
-                                child: Text(
-                                  "Sold Date",
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: UniSoundColor.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 15, left: 25, right: 25),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      width: 2,
+                      !getitem.checkElement
+                          ? Container()
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 20),
+                                  child: Text(
+                                    "Sold Channel",
+                                    style: GoogleFonts.robotoCondensed(
                                       color: UniSoundColor.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
                                     ),
                                   ),
-                                  child: GestureDetector(
-                                    onTap: () async {
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Dialog(
-                                            child: SizedBox(
-                                              width: 600,
-                                              height: 800,
-                                              child: SfDateRangePicker(
-                                                headerHeight: 100,
-                                                selectionMode:
-                                                    DateRangePickerSelectionMode
-                                                        .single,
-                                                showNavigationArrow: true,
-                                                backgroundColor:
-                                                    UniSoundColor.wh,
-                                                selectionColor:
-                                                    UniSoundColor.black,
-                                                showActionButtons: true,
-                                                cancelText: "Cancel",
-                                                confirmText: "Confirm",
-                                                todayHighlightColor:
-                                                    UniSoundColor.black,
-                                                headerStyle:
-                                                    DateRangePickerHeaderStyle(
-                                                  textStyle: GoogleFonts
-                                                      .robotoCondensed(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
-                                                  ),
-                                                ),
-                                                selectionTextStyle:
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: UniSoundColor.wh,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 5,
+                                          left: 25,
+                                          right: 25),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                            width: 2,
+                                            color: UniSoundColor.black,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 10, left: 10),
+                                          child: SizedBox(
+                                            height: 40.0,
+                                            child: DropdownButton<String>(
+                                              hint: Text(
+                                                "Sold Channel",
+                                                style:
                                                     GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
                                                   fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
                                                 ),
-                                                monthCellStyle:
-                                                    DateRangePickerMonthCellStyle(
-                                                  todayTextStyle: GoogleFonts
-                                                      .robotoCondensed(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
+                                              ),
+                                              isExpanded: true,
+                                              value: channelSaleListValue,
+                                              icon: Icon(
+                                                Icons.arrow_downward,
+                                                color: UniSoundColor.black,
+                                              ),
+                                              elevation: 16,
+                                              style:
+                                                  GoogleFonts.robotoCondensed(
+                                                color: UniSoundColor.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 18,
+                                              ),
+                                              underline: Container(
+                                                height: 2,
+                                                color: UniSoundColor.wh,
+                                              ),
+                                              onChanged: (String? value) {
+                                                setState(() {
+                                                  channelSaleListValue = value!;
+                                                  setpayment.channelsale =
+                                                      channelSaleListValue!;
+                                                });
+                                              },
+                                              items: channelSaleList.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 20),
+                                  child: Text(
+                                    "Advertising Channel",
+                                    style: GoogleFonts.robotoCondensed(
+                                      color: UniSoundColor.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: UniSoundColor.wh,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 5,
+                                          left: 25,
+                                          right: 25),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                            width: 2,
+                                            color: UniSoundColor.black,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 10, left: 10),
+                                          child: SizedBox(
+                                            height: 40.0,
+                                            child: DropdownButton<String>(
+                                              hint: Text(
+                                                "Advertising Channel",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              isExpanded: true,
+                                              value: channelAdvListValue,
+                                              icon: Icon(
+                                                Icons.arrow_downward,
+                                                color: UniSoundColor.black,
+                                              ),
+                                              elevation: 16,
+                                              style:
+                                                  GoogleFonts.robotoCondensed(
+                                                color: UniSoundColor.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 18,
+                                              ),
+                                              underline: Container(
+                                                height: 2,
+                                                color: UniSoundColor.wh,
+                                              ),
+                                              onChanged: (String? value) {
+                                                setState(() {
+                                                  channelAdvListValue = value!;
+                                                  setpayment.channelads =
+                                                      channelAdvListValue!;
+                                                });
+                                              },
+                                              items: channelAdvList.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 20),
+                                  child: Text(
+                                    "Sold Date",
+                                    style: GoogleFonts.robotoCondensed(
+                                      color: UniSoundColor.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 15, left: 25, right: 25),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: UniSoundColor.black,
+                                      ),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              child: SizedBox(
+                                                width: 600,
+                                                height: 800,
+                                                child: SfDateRangePicker(
+                                                  headerHeight: 100,
+                                                  selectionMode:
+                                                      DateRangePickerSelectionMode
+                                                          .single,
+                                                  showNavigationArrow: true,
+                                                  backgroundColor:
+                                                      UniSoundColor.wh,
+                                                  selectionColor:
+                                                      UniSoundColor.black,
+                                                  showActionButtons: true,
+                                                  cancelText: "Cancel",
+                                                  confirmText: "Confirm",
+                                                  todayHighlightColor:
+                                                      UniSoundColor.black,
+                                                  headerStyle:
+                                                      DateRangePickerHeaderStyle(
+                                                    textStyle: GoogleFonts
+                                                        .robotoCondensed(
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
                                                   ),
-                                                  textStyle: GoogleFonts
-                                                      .robotoCondensed(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
-                                                  ),
-                                                  leadingDatesTextStyle:
+                                                  selectionTextStyle:
                                                       GoogleFonts
                                                           .robotoCondensed(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
+                                                    color: Colors.white,
                                                   ),
-                                                  trailingDatesTextStyle:
-                                                      GoogleFonts
-                                                          .robotoCondensed(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
-                                                  ),
-                                                  weekendTextStyle: GoogleFonts
-                                                      .robotoCondensed(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
-                                                  ),
-                                                ),
-                                                yearCellStyle:
-                                                    DateRangePickerYearCellStyle(
-                                                  todayTextStyle: GoogleFonts
-                                                      .robotoCondensed(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
-                                                  ),
-                                                  textStyle: GoogleFonts
-                                                      .robotoCondensed(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
-                                                  ),
-                                                  leadingDatesTextStyle:
-                                                      GoogleFonts
-                                                          .robotoCondensed(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: UniSoundColor.black,
-                                                  ),
-                                                ),
-                                                monthViewSettings:
-                                                    DateRangePickerMonthViewSettings(
-                                                  viewHeaderStyle:
-                                                      DateRangePickerViewHeaderStyle(
+                                                  monthCellStyle:
+                                                      DateRangePickerMonthCellStyle(
+                                                    todayTextStyle: GoogleFonts
+                                                        .robotoCondensed(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
                                                     textStyle: GoogleFonts
                                                         .robotoCondensed(
                                                       fontSize: 16,
@@ -874,259 +844,335 @@ class _SalePageState extends State<SalePage> {
                                                       color:
                                                           UniSoundColor.black,
                                                     ),
+                                                    leadingDatesTextStyle:
+                                                        GoogleFonts
+                                                            .robotoCondensed(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
+                                                    trailingDatesTextStyle:
+                                                        GoogleFonts
+                                                            .robotoCondensed(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
+                                                    weekendTextStyle:
+                                                        GoogleFonts
+                                                            .robotoCondensed(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
+                                                  ),
+                                                  yearCellStyle:
+                                                      DateRangePickerYearCellStyle(
+                                                    todayTextStyle: GoogleFonts
+                                                        .robotoCondensed(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
+                                                    textStyle: GoogleFonts
+                                                        .robotoCondensed(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
+                                                    leadingDatesTextStyle:
+                                                        GoogleFonts
+                                                            .robotoCondensed(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
+                                                  ),
+                                                  monthViewSettings:
+                                                      DateRangePickerMonthViewSettings(
+                                                    viewHeaderStyle:
+                                                        DateRangePickerViewHeaderStyle(
+                                                      textStyle: GoogleFonts
+                                                          .robotoCondensed(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color:
+                                                            UniSoundColor.black,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  onCancel: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  onSubmit: (p0) {
+                                                    setState(() {
+                                                      DateTime soldDatetime =
+                                                          DateTime.parse(
+                                                              p0.toString());
+                                                      solddateController =
+                                                          soldDatetime
+                                                              .toString()
+                                                              .split(" ")[0];
+                                                      setpayment.solddate =
+                                                          solddateController;
+                                                    });
+
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 5,
+                                            bottom: 5,
+                                            left: 10,
+                                            right: 10,
+                                          ),
+                                          child: Container(
+                                            alignment: Alignment.centerLeft,
+                                            height: 35.0,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  solddateController,
+                                                  style: GoogleFonts
+                                                      .robotoCondensed(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 18,
+                                                    color: UniSoundColor.black,
                                                   ),
                                                 ),
-                                                onCancel: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                onSubmit: (p0) {
-                                                  setState(() {
-                                                    DateTime soldDatetime =
-                                                        DateTime.parse(
-                                                            p0.toString());
-                                                    solddateController =
-                                                        soldDatetime
-                                                            .toString()
-                                                            .split(" ")[0];
-                                                    setpayment.solddate =
-                                                        solddateController;
-                                                  });
-
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 5,
-                                          bottom: 5,
-                                          left: 10,
-                                          right: 10,
-                                        ),
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          height: 35.0,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                solddateController,
-                                                style:
-                                                    GoogleFonts.robotoCondensed(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 18,
+                                                Icon(
+                                                  Icons.calendar_today_outlined,
                                                   color: UniSoundColor.black,
                                                 ),
-                                              ),
-                                              Icon(
-                                                Icons.calendar_today_outlined,
-                                                color: UniSoundColor.black,
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 5, left: 20),
-                                child: Text(
-                                  "Sold Price",
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: UniSoundColor.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 25, right: 25, bottom: 15),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      width: 2,
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 20),
+                                  child: Text(
+                                    "Sold Price",
+                                    style: GoogleFonts.robotoCondensed(
                                       color: UniSoundColor.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
                                     ),
                                   ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: TextField(
-                                      onChanged: (value) {
-                                        if (value != '') {
-                                          setpayment.saleprice =
-                                              int.parse(priceController.text);
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 25, right: 25, bottom: 15),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: UniSoundColor.black,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: TextField(
+                                        onChanged: (value) {
+                                          if (value != '') {
+                                            setpayment.saleprice =
+                                                int.parse(priceController.text);
+                                            setState(() {});
+                                          }
+                                        },
+                                        controller: priceController,
+                                        keyboardType: TextInputType.text,
+                                        style: GoogleFonts.robotoCondensed(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18,
+                                          color: UniSoundColor.black,
+                                        ),
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.deny(
+                                              RegExp(r"\s\b|\b\s")),
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                        ],
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "Price",
+                                          hintStyle:
+                                              GoogleFonts.robotoCondensed(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 18,
+                                            color: UniSoundColor.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 10, left: 20),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 37,
+                                        child: Text(
+                                          "This product is on sale",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 65,
+                                        child: Container(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Checkbox(
+                                            value: thisitemonsale,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                thisitemonsale = value!;
+                                                setpayment.thisitemsale =
+                                                    thisitemonsale;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 20),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 15,
+                                        child: Text(
+                                          "Member",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 85,
+                                        child: Container(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Checkbox(
+                                            value: customermember,
+                                            onChanged: (value) {
+                                              if (value!) {
+                                                setpayment.telmember =
+                                                    telmemberController.text;
+                                              } else {
+                                                setpayment.telmember = "";
+                                              }
+                                              setState(() {
+                                                customermember = value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 25, right: 25, bottom: 15),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: UniSoundColor.black,
+                                      ),
+                                      color: customermember
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: TextField(
+                                        readOnly: !customermember,
+                                        controller: telmemberController,
+                                        onChanged: (value) {
+                                          setpayment.telmember =
+                                              telmemberController.text;
                                           setState(() {});
-                                        }
-                                      },
-                                      controller: priceController,
-                                      keyboardType: TextInputType.text,
-                                      style: GoogleFonts.robotoCondensed(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 18,
-                                        color: UniSoundColor.black,
-                                      ),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.deny(
-                                            RegExp(r"\s\b|\b\s")),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Price",
-                                        hintStyle: GoogleFonts.robotoCondensed(
+                                        },
+                                        keyboardType: TextInputType.text,
+                                        style: GoogleFonts.robotoCondensed(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 18,
                                           color: UniSoundColor.black,
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 10, left: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      flex: 37,
-                                      child: Text(
-                                        "This product is on sale",
-                                        style: GoogleFonts.robotoCondensed(
-                                          color: UniSoundColor.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 65,
-                                      child: Container(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Checkbox(
-                                          value: thisitemonsale,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              thisitemonsale = value!;
-                                              setpayment.thisitemsale =
-                                                  thisitemonsale;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 5, left: 20),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      flex: 15,
-                                      child: Text(
-                                        "Member",
-                                        style: GoogleFonts.robotoCondensed(
-                                          color: UniSoundColor.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 85,
-                                      child: Container(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Checkbox(
-                                          value: customermember,
-                                          onChanged: (value) {
-                                            if (value!) {
-                                              setpayment.telmember =
-                                                  telmemberController.text;
-                                            } else {
-                                              setpayment.telmember = "";
-                                            }
-                                            setState(() {
-                                              customermember = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 25, right: 25, bottom: 15),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      width: 2,
-                                      color: UniSoundColor.black,
-                                    ),
-                                    color: customermember
-                                        ? Colors.white
-                                        : Colors.grey,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: TextField(
-                                      readOnly: !customermember,
-                                      controller: telmemberController,
-                                      onChanged: (value) {
-                                        setpayment.telmember =
-                                            telmemberController.text;
-                                        setState(() {});
-                                      },
-                                      keyboardType: TextInputType.text,
-                                      style: GoogleFonts.robotoCondensed(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 18,
-                                        color: UniSoundColor.black,
-                                      ),
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.deny(
-                                            RegExp(r"\s\b|\b\s")),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Tel",
-                                        hintStyle: GoogleFonts.robotoCondensed(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 18,
-                                          color: UniSoundColor.black,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.deny(
+                                              RegExp(r"\s\b|\b\s")),
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                        ],
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "Tel",
+                                          hintStyle:
+                                              GoogleFonts.robotoCondensed(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 18,
+                                            color: UniSoundColor.black,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                  ],
+                              ],
+                            ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -1134,6 +1180,7 @@ class _SalePageState extends State<SalePage> {
           Expanded(
             flex: 3,
             child: Container(
+              height: 1000,
               decoration: BoxDecoration(
                 color: setpayment.checkElement
                     ? UniSoundColor.wh
@@ -1148,429 +1195,433 @@ class _SalePageState extends State<SalePage> {
                 ),
                 child: loadingsummary
                     ? const LoadingWidget()
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 20,
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  FontAwesomeIcons.caretRight,
-                                  size: 40,
-                                  color: UniSoundColor.rePurple,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    "SUMMARY",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: setpayment.checkElement
-                                          ? UniSoundColor.black
-                                          : UniSoundColor.reGray,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 50,
+                    : SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                bottom: 20,
+                              ),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    FontAwesomeIcons.caretRight,
+                                    size: 40,
+                                    color: UniSoundColor.rePurple,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      "SUMMARY",
+                                      style: GoogleFonts.robotoCondensed(
+                                        color: setpayment.checkElement
+                                            ? UniSoundColor.black
+                                            : UniSoundColor.reGray,
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 50,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          setpayment.checkElement
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 15,
-                                            child: Text(
-                                              "NAME :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 85,
-                                            child: Text(
-                                              setpayment.thisitemsale
-                                                  ? "**SALE** ${setpayment.itemmname}"
-                                                  : setpayment.itemmname,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 15,
-                                            child: Text(
-                                              "SKU TH :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 85,
-                                            child: Text(
-                                              setpayment.skuth,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 15,
-                                            child: Text(
-                                              "SKU JP :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 85,
-                                            child: Text(
-                                              setpayment.skujp,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 25,
-                                            child: Text(
-                                              "SOLD PRICE :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 75,
-                                            child: Text(
-                                              "${fcomma.format(setpayment.saleprice)} THB",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 25,
-                                            child: Text(
-                                              "SOLD DATE :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 75,
-                                            child: Text(
-                                              setpayment.solddate,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              "SERIAL NUMBER :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 70,
-                                            child: Text(
-                                              setpayment.serialnum,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 30,
-                                            child: Text(
-                                              "SOLD CHANNEL :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 70,
-                                            child: Text(
-                                              setpayment.channelsale,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 40,
-                                            child: Text(
-                                              "ADVERTISING CHANNEL :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 60,
-                                            child: Text(
-                                              setpayment.channelads,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            flex: 15,
-                                            child: Text(
-                                              "MEMBER :  ",
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 85,
-                                            child: Text(
-                                              setpayment.telmember == ''
-                                                  ? "Not member"
-                                                  : setpayment.telmember,
-                                              style:
-                                                  GoogleFonts.robotoCondensed(
-                                                color: UniSoundColor.black,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30, bottom: 60, right: 30),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () async {
-                                              setState(() {
-                                                loadingsummary = true;
-                                              });
-                                              bool resultconfrim =
-                                                  await confirmpaymentController(
-                                                      setpayment);
-                                              if (resultconfrim) {
-                                                sendcommandopendrawer();
-                                                scancodecontroller.text = '';
-                                                getitem =
-                                                    ItemdetailModel.newModel();
-                                                setpayment = PaymentdetailModel
-                                                    .newModel();
-                                                clearInputPaymentPart();
-                                              }
-                                              setState(() {
-                                                loadingsummary = false;
-                                              });
-                                              showDialog(
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return resultdialogconfirmpayment(
-                                                      resultconfrim,
-                                                    );
-                                                  });
-                                            },
-                                            child: Container(
-                                              alignment: Alignment.center,
-                                              width: 200,
-                                              height: 50,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    scancodecontroller.text !=
-                                                            ''
-                                                        ? Colors.green
-                                                        : Colors.grey,
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                border: Border.all(
-                                                  width: 3,
-                                                  color: Colors.black38,
-                                                ),
-                                              ),
+                            setpayment.checkElement
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 15,
                                               child: Text(
-                                                "CONFIRM PAYMENT",
+                                                "NAME :  ",
                                                 style:
                                                     GoogleFonts.robotoCondensed(
-                                                  color: UniSoundColor.wh,
+                                                  color: UniSoundColor.black,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 18,
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                            Expanded(
+                                              flex: 85,
+                                              child: Text(
+                                                setpayment.thisitemsale
+                                                    ? "**SALE** ${setpayment.itemmname}"
+                                                    : setpayment.itemmname,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Text(
-                                        "* Don't forget to write the invoice in the invoice book for the customer.",
-                                        style: GoogleFonts.robotoCondensed(
-                                            color: UniSoundColor.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 15,
+                                              child: Text(
+                                                "SKU TH :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 85,
+                                              child: Text(
+                                                setpayment.skuth,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          bottom: 5, left: 20),
-                                      child: Text(
-                                        "   อย่าลืมเขียนบิลในเล่มให้คุณลูกค้าด้วยน้า",
-                                        style: GoogleFonts.kanit(
-                                            color: UniSoundColor.black,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 15),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 15,
+                                              child: Text(
+                                                "SKU JP :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 85,
+                                              child: Text(
+                                                setpayment.skujp,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              : Container()
-                        ],
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 25,
+                                              child: Text(
+                                                "SOLD PRICE :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 75,
+                                              child: Text(
+                                                "${fcomma.format(setpayment.saleprice)} THB",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 25,
+                                              child: Text(
+                                                "SOLD DATE :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 75,
+                                              child: Text(
+                                                setpayment.solddate,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 30,
+                                              child: Text(
+                                                "SERIAL NUMBER :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 70,
+                                              child: Text(
+                                                setpayment.serialnum,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 30,
+                                              child: Text(
+                                                "SOLD CHANNEL :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 70,
+                                              child: Text(
+                                                setpayment.channelsale,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 40,
+                                              child: Text(
+                                                "ADVERTISING CHANNEL :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 60,
+                                              child: Text(
+                                                setpayment.channelads,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 15,
+                                              child: Text(
+                                                "MEMBER :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 85,
+                                              child: Text(
+                                                setpayment.telmember == ''
+                                                    ? "Not member"
+                                                    : setpayment.telmember,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 30, bottom: 60, right: 30),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () async {
+                                                setState(() {
+                                                  loadingsummary = true;
+                                                });
+                                                bool resultconfrim =
+                                                    await confirmpaymentController(
+                                                        setpayment);
+                                                if (resultconfrim) {
+                                                  sendcommandopendrawer();
+                                                  scancodecontroller.text = '';
+                                                  getitem = ItemdetailModel
+                                                      .newModel();
+                                                  setpayment =
+                                                      PaymentdetailModel
+                                                          .newModel();
+                                                  clearInputPaymentPart();
+                                                }
+                                                setState(() {
+                                                  loadingsummary = false;
+                                                });
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return resultdialogconfirmpayment(
+                                                        resultconfrim,
+                                                      );
+                                                    });
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                width: 200,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      scancodecontroller.text !=
+                                                              ''
+                                                          ? Colors.green
+                                                          : Colors.grey,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  border: Border.all(
+                                                    width: 3,
+                                                    color: Colors.black38,
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  "CONFIRM PAYMENT",
+                                                  style: GoogleFonts
+                                                      .robotoCondensed(
+                                                    color: UniSoundColor.wh,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Text(
+                                          "* Don't forget to write the invoice in the invoice book for the customer.",
+                                          style: GoogleFonts.robotoCondensed(
+                                              color: UniSoundColor.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Text(
+                                          "   อย่าลืมเขียนบิลในเล่มให้คุณลูกค้าด้วยน้า",
+                                          style: GoogleFonts.kanit(
+                                              color: UniSoundColor.black,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 15),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container()
+                          ],
+                        ),
                       ),
               ),
             ),

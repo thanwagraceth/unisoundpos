@@ -131,308 +131,316 @@ class _CheckstockwidgetState extends State<Checkstockwidget> {
                         height: 400,
                         child: LoadingWidget(),
                       )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 40, right: 40),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 20),
+                    : SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 40, right: 40),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 20),
+                                      child: Text(
+                                        "TODAY DATE :",
+                                        style: GoogleFonts.robotoCondensed(
+                                          color: UniSoundColor.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 7,
                                     child: Text(
-                                      "TODAY DATE :",
+                                      "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
                                       style: GoogleFonts.robotoCondensed(
                                         color: UniSoundColor.black,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 18,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: Text(
-                                    "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 20,
+                                bottom: 30,
+                                right: 40,
+                                left: 40,
+                              ),
+                              child: GestureDetector(
+                                onTap: () async {
+                                  if (!sheetstill) {
+                                    setState(() {
+                                      loadingstate = true;
+                                    });
+                                    await createchecksheet();
+                                    await getchecksheetstatus();
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: 300,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: !sheetstill
+                                        ? Colors.green
+                                        : Colors.grey,
+                                    borderRadius: BorderRadius.circular(5),
+                                    border: Border.all(
+                                      width: 3,
+                                      color: Colors.black38,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 20,
-                              bottom: 30,
-                              right: 40,
-                              left: 40,
-                            ),
-                            child: GestureDetector(
-                              onTap: () async {
-                                if (!sheetstill) {
-                                  setState(() {
-                                    loadingstate = true;
-                                  });
-                                  await createchecksheet();
-                                  await getchecksheetstatus();
-                                }
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: 300,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color:
-                                      !sheetstill ? Colors.green : Colors.grey,
-                                  borderRadius: BorderRadius.circular(5),
-                                  border: Border.all(
-                                    width: 3,
-                                    color: Colors.black38,
-                                  ),
-                                ),
-                                child: Text(
-                                  !sheetstill
-                                      ? "START CHECK STOCK"
-                                      : "CHECKSTOCK SHEET IS WORKING",
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: UniSoundColor.wh,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
+                                  child: Text(
+                                    !sheetstill
+                                        ? "START CHECK STOCK"
+                                        : "CHECKSTOCK SHEET IS WORKING",
+                                    style: GoogleFonts.robotoCondensed(
+                                      color: UniSoundColor.wh,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 40, right: 40, bottom: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 20),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 40, right: 40, bottom: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 20),
+                                      child: Text(
+                                        "CHECK STOCK :",
+                                        style: GoogleFonts.robotoCondensed(
+                                          color: UniSoundColor.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 7,
                                     child: Text(
-                                      "CHECK STOCK :",
+                                      "${DateTime.now().month}-${DateTime.now().year}",
                                       style: GoogleFonts.robotoCondensed(
                                         color: UniSoundColor.black,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 18,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 7,
-                                  child: Text(
-                                    "${DateTime.now().month}-${DateTime.now().year}",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 40,
+                                right: 40,
+                                bottom: 5,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 20),
+                                      child: Text(
+                                        "EXPECTED ITEM :",
+                                        style: GoogleFonts.robotoCondensed(
+                                          color: UniSoundColor.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 40,
-                              right: 40,
-                              bottom: 5,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 20),
+                                  Expanded(
+                                    flex: 6,
                                     child: Text(
-                                      "EXPECTED ITEM :",
+                                      "$expecteditem  UNIT",
                                       style: GoogleFonts.robotoCondensed(
                                         color: UniSoundColor.black,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 18,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 6,
-                                  child: Text(
-                                    "$expecteditem  UNIT",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 40,
+                                right: 40,
+                                bottom: 5,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 20),
+                                      child: Text(
+                                        "ACTUAL ITEM :",
+                                        style: GoogleFonts.robotoCondensed(
+                                          color: UniSoundColor.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: 40,
-                              right: 40,
-                              bottom: 5,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 4,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 20),
+                                  Expanded(
+                                    flex: 6,
                                     child: Text(
-                                      "ACTUAL ITEM :",
+                                      "$actualitem  UNIT",
                                       style: GoogleFonts.robotoCondensed(
                                         color: UniSoundColor.black,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w400,
                                         fontSize: 18,
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 6,
-                                  child: Text(
-                                    "$actualitem  UNIT",
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: UniSoundColor.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
               ),
               Expanded(
                 flex: 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, bottom: 5, left: 40),
-                      child: Text(
-                        "SCAN SKU JAPAN",
-                        style: GoogleFonts.robotoCondensed(
-                          color: UniSoundColor.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25, right: 25, bottom: 15),
-                      child: Container(
-                        height: 750,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            width: 2,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 10, bottom: 5, left: 40),
+                        child: Text(
+                          "SCAN SKU JAPAN",
+                          style: GoogleFonts.robotoCondensed(
                             color: UniSoundColor.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: TextField(
-                            keyboardType: TextInputType.multiline,
-                            maxLines: null,
-                            expands: true,
-                            onChanged: (value) async {
-                              scanskujpController.text = convertskuth(value);
-                              List<String> getlistsku =
-                                  scanskujpController.text.split(' ');
-                              listsku = getlistsku.toSet().toList();
-                              listsku.removeWhere((item) => item == '');
-                              if (listsku.isNotEmpty) {
-                                if (skumemory.isNotEmpty) {
-                                  if (listsku.last != skumemory.last) {
-                                    await lookuptoskureadytocall();
-                                  }
-                                } else {
-                                  await lookuptoskureadytocall();
-                                }
-                              }
-                            },
-                            controller: scanskujpController,
-                            style: GoogleFonts.robotoCondensed(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 18,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 25, right: 25, bottom: 15),
+                        child: Container(
+                          height: 750,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              width: 2,
                               color: UniSoundColor.black,
                             ),
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "SCAN",
-                              hintStyle: GoogleFonts.robotoCondensed(
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: TextField(
+                              keyboardType: TextInputType.multiline,
+                              maxLines: null,
+                              expands: true,
+                              onChanged: (value) async {
+                                scanskujpController.text = convertskuth(value);
+                                List<String> getlistsku =
+                                    scanskujpController.text.split(' ');
+                                listsku = getlistsku.toSet().toList();
+                                listsku.removeWhere((item) => item == '');
+                                if (listsku.isNotEmpty) {
+                                  if (skumemory.isNotEmpty) {
+                                    if (listsku.last != skumemory.last) {
+                                      await lookuptoskureadytocall();
+                                    }
+                                  } else {
+                                    await lookuptoskureadytocall();
+                                  }
+                                }
+                              },
+                              controller: scanskujpController,
+                              style: GoogleFonts.robotoCondensed(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 18,
                                 color: UniSoundColor.black,
                               ),
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "SCAN",
+                                hintStyle: GoogleFonts.robotoCondensed(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 18,
+                                  color: UniSoundColor.black,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Expanded(
                 flex: 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, bottom: 10, left: 40),
-                      child: Text(
-                        "RESULTs",
-                        style: GoogleFonts.robotoCondensed(
-                          color: UniSoundColor.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10, bottom: 10, left: 40),
+                        child: Text(
+                          "RESULTs",
+                          style: GoogleFonts.robotoCondensed(
+                            color: UniSoundColor.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: SizedBox(
-                        height: 740,
-                        child: ListView.builder(
-                          itemCount: countitemresult.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Responcheckstock(
-                              resultin: countitemresult[index],
-                            );
-                          },
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: SizedBox(
+                          height: 740,
+                          child: ListView.builder(
+                            itemCount: countitemresult.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Responcheckstock(
+                                resultin: countitemresult[index],
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
