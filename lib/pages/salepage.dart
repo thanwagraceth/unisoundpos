@@ -8,6 +8,7 @@ import 'package:unisoundpos/controller/scancodegetdetail_controller.dart';
 import 'package:unisoundpos/model/itemdetail_model.dart';
 import 'package:unisoundpos/model/paymentdetail_model.dart';
 import 'package:unisoundpos/style/color_unisound.dart';
+import 'package:unisoundpos/utility/decryptbarcodetoskuth.dart';
 import 'package:unisoundpos/utility/senddatatousb.dart';
 import 'package:unisoundpos/widget/drawermenucustom.dart';
 import 'package:unisoundpos/widget/loading_widget.dart';
@@ -182,7 +183,22 @@ class _SalePageState extends State<SalePage> {
                                             TextAlignVertical.center,
                                         textAlign: TextAlign.start,
                                         onChanged: (value) {
-                                          setState(() {});
+                                          if (value.split("").length == 12) {
+                                            if ("${value.split("")[0]}${value.split("")[1]}" ==
+                                                    "01" ||
+                                                "${value.split("")[0]}${value.split("")[1]}" ==
+                                                    "02") {
+                                              Map<String, String>
+                                                  resultdecrypt =
+                                                  decryptbarcodetoskuth(value);
+                                              if (resultdecrypt['storename'] ==
+                                                  "UNISOUND") {
+                                                scancodecontroller.text =
+                                                    resultdecrypt['skuth']!;
+                                                setState(() {});
+                                              }
+                                            }
+                                          }
                                         },
                                         decoration: InputDecoration(
                                           hintText: "SKU TH",
