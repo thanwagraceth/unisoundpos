@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:unisoundpos/style/color_unisound.dart';
 import 'package:unisoundpos/widget/drawermenucustom.dart';
 import 'package:unisoundpos/widget/stockpagewidget/checkstockwidget.dart';
+import 'package:unisoundpos/widget/stockpagewidget/genqrcodetoshopify.dart';
 import 'package:unisoundpos/widget/stockpagewidget/receivewidget.dart';
 import 'package:unisoundpos/widget/reprintbarcode/reprintbarcode.dart';
 import 'package:unisoundpos/widget/stockpagewidget/updatestatuswidget.dart';
@@ -34,6 +35,8 @@ class _StockPageState extends State<StockPage> {
         return const Checkstockwidget();
       case 4:
         return const Reprintbarcode();
+      case 5:
+        return const Genqrcodetoshopify();
       default:
         return const Updatestatuswidget();
     }
@@ -200,6 +203,41 @@ class _StockPageState extends State<StockPage> {
                                 color: UniSoundColor.wh,
                                 fontWeight: FontWeight.w900,
                                 fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currectlyselect = 5;
+                      });
+                    },
+                    child: Container(
+                      height: 80,
+                      color: currectlyselect == 5
+                          ? UniSoundColor.rePurple
+                          : UniSoundColor.reGray,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.caretRight,
+                              size: 30,
+                              color: UniSoundColor.wh,
+                            ),
+                            Text(
+                              "GEN QRCODE SHOPIFY",
+                              style: GoogleFonts.robotoCondensed(
+                                color: UniSoundColor.wh,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 18,
                               ),
                             ),
                           ],
