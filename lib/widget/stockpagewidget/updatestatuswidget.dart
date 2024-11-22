@@ -16,6 +16,7 @@ class Updatestatuswidget extends StatefulWidget {
 
 class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
   TextEditingController scancodecontroller = TextEditingController();
+  TextEditingController skucodecontroller = TextEditingController();
   late List<String> listskuth;
   late List<String> skureadytocall;
   late bool loadingstate;
@@ -87,7 +88,8 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
   clearinputstate() {
     skureadytocall = [];
     listskuth = [];
-    scancodecontroller.text = '';
+    //scancodecontroller.text = '';
+    skucodecontroller.text = '';
     statuslistValue = null;
     conditionlistValue = null;
   }
@@ -146,15 +148,16 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
                             child: Column(
                               children: [
                                 Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Expanded(
-                                      flex: 3,
+                                      flex: 1,
                                       child: Padding(
                                         padding:
-                                            const EdgeInsets.only(right: 20),
+                                            const EdgeInsets.only(right: 5),
                                         child: Text(
-                                          "SCANCODE :",
+                                          "SCAN :",
                                           style: GoogleFonts.robotoCondensed(
                                             color: UniSoundColor.black,
                                             fontWeight: FontWeight.bold,
@@ -164,7 +167,133 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 5,
+                                      flex: 2,
+                                      child: Container(
+                                        alignment: Alignment.topLeft,
+                                        height: 400,
+                                        decoration: BoxDecoration(
+                                          color: UniSoundColor.wh,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                            width: 3,
+                                            color: UniSoundColor.black,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 10,
+                                            left: 10,
+                                            right: 10,
+                                            bottom: 10,
+                                          ),
+                                          child: TextFormField(
+                                            textAlignVertical:
+                                                TextAlignVertical.top,
+                                            textAlign: TextAlign.start,
+                                            maxLines: null,
+                                            expands: true,
+                                            decoration: InputDecoration(
+                                              hintText: "SCAN",
+                                              hintStyle:
+                                                  GoogleFonts.robotoCondensed(
+                                                textStyle: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                              border: InputBorder.none,
+                                            ),
+                                            keyboardType:
+                                                TextInputType.multiline,
+                                            controller: scancodecontroller,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 10,
+                                          left: 10,
+                                        ),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            String convertskufrombarcode =
+                                                convertskuth(
+                                                    scancodecontroller.text);
+                                            skucodecontroller.text =
+                                                convertskufrombarcode;
+                                            List<String> getlistskujp =
+                                                skucodecontroller.text
+                                                    .split(' ');
+                                            listskuth =
+                                                getlistskujp.toSet().toList();
+                                            listskuth.removeWhere(
+                                                (item) => item == '');
+                                            lookuptoskureadytocall();
+                                            setState(() {});
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: Colors.blueAccent,
+                                            ),
+                                            width: 30,
+                                            height: 200,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  ">>",
+                                                  style: GoogleFonts
+                                                      .robotoCondensed(
+                                                    color: UniSoundColor.wh,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 30,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "convert",
+                                                  style: GoogleFonts
+                                                      .robotoCondensed(
+                                                    color: UniSoundColor.wh,
+                                                    fontWeight: FontWeight.w700,
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: Text(
+                                          "SKU :",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
                                       child: Container(
                                         alignment: Alignment.topLeft,
                                         height: 400,
@@ -180,8 +309,8 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
                                         child: Padding(
                                           padding: const EdgeInsets.only(
                                             top: 10,
-                                            left: 25,
-                                            right: 25,
+                                            left: 10,
+                                            right: 10,
                                             bottom: 10,
                                           ),
                                           child: TextFormField(
@@ -193,10 +322,10 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
                                             onChanged: (value) {
                                               String convertskufrombarcode =
                                                   convertskuth(value);
-                                              scancodecontroller.text =
+                                              skucodecontroller.text =
                                                   convertskufrombarcode;
                                               List<String> getlistskujp =
-                                                  scancodecontroller.text
+                                                  skucodecontroller.text
                                                       .split(' ');
                                               listskuth =
                                                   getlistskujp.toSet().toList();
@@ -218,7 +347,7 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
                                               border: InputBorder.none,
                                             ),
                                             keyboardType: TextInputType.number,
-                                            controller: scancodecontroller,
+                                            controller: skucodecontroller,
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w400,
                                               color: Colors.black,
@@ -229,9 +358,9 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
                                       ),
                                     ),
                                     Expanded(
-                                      flex: 2,
+                                      flex: 1,
                                       child: Container(),
-                                    )
+                                    ),
                                   ],
                                 ),
                                 Padding(

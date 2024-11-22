@@ -19,6 +19,7 @@ class Checkstockwidget extends StatefulWidget {
 
 class _CheckstockwidgetState extends State<Checkstockwidget> {
   TextEditingController scanskujpController = TextEditingController();
+  TextEditingController scancodecontroller = TextEditingController();
   late int expecteditem = 0;
   late int actualitem = 0;
   late List<String> listsku;
@@ -336,78 +337,214 @@ class _CheckstockwidgetState extends State<Checkstockwidget> {
                         ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 7,
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, bottom: 5, left: 40),
-                          child: Text(
-                            "SCAN SKU TH",
-                            style: GoogleFonts.robotoCondensed(
-                              color: UniSoundColor.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 25, right: 25, bottom: 15),
-                          child: Container(
-                            height: 750,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                width: 2,
-                                color: UniSoundColor.black,
-                              ),
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: TextField(
-                                keyboardType: TextInputType.multiline,
-                                maxLines: null,
-                                expands: true,
-                                onChanged: (value) async {
-                                  scanskujpController.text =
-                                      convertskuth(value);
-                                  List<String> getlistsku =
-                                      scanskujpController.text.split(' ');
-                                  listsku = getlistsku.toSet().toList();
-                                  listsku.removeWhere((item) => item == '');
-                                  if (listsku.isNotEmpty) {
-                                    if (skumemory.isNotEmpty) {
-                                      if (listsku.last != skumemory.last) {
-                                        await lookuptoskureadytocall();
-                                      }
-                                    } else {
-                                      await lookuptoskureadytocall();
-                                    }
-                                  }
-                                },
-                                controller: scanskujpController,
-                                style: GoogleFonts.robotoCondensed(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 18,
-                                  color: UniSoundColor.black,
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "SCAN",
-                                  hintStyle: GoogleFonts.robotoCondensed(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 18,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Text(
+                                  "SCAN :",
+                                  style: GoogleFonts.robotoCondensed(
                                     color: UniSoundColor.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
                                   ),
                                 ),
                               ),
                             ),
-                          ),
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                alignment: Alignment.topLeft,
+                                height: 600,
+                                decoration: BoxDecoration(
+                                  color: UniSoundColor.wh,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    width: 3,
+                                    color: UniSoundColor.black,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                    left: 10,
+                                    right: 10,
+                                    bottom: 10,
+                                  ),
+                                  child: TextFormField(
+                                    textAlignVertical: TextAlignVertical.top,
+                                    textAlign: TextAlign.start,
+                                    maxLines: null,
+                                    expands: true,
+                                    decoration: InputDecoration(
+                                      hintText: "SCAN",
+                                      hintStyle: GoogleFonts.robotoCondensed(
+                                        textStyle: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      border: InputBorder.none,
+                                    ),
+                                    keyboardType: TextInputType.multiline,
+                                    controller: scancodecontroller,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 10,
+                                  left: 10,
+                                ),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    scanskujpController.text =
+                                        convertskuth(scancodecontroller.text);
+                                    List<String> getlistsku =
+                                        scanskujpController.text.split(' ');
+                                    listsku = getlistsku.toSet().toList();
+                                    listsku.removeWhere((item) => item == '');
+                                    if (listsku.isNotEmpty) {
+                                      if (skumemory.isNotEmpty) {
+                                        if (listsku.last != skumemory.last) {
+                                          await lookuptoskureadytocall();
+                                        }
+                                      } else {
+                                        await lookuptoskureadytocall();
+                                      }
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.blueAccent,
+                                    ),
+                                    width: 30,
+                                    height: 200,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          ">>",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.wh,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 30,
+                                          ),
+                                        ),
+                                        Text(
+                                          "convert",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.wh,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Text(
+                                  "SKU :",
+                                  style: GoogleFonts.robotoCondensed(
+                                    color: UniSoundColor.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Container(
+                                alignment: Alignment.topLeft,
+                                height: 600,
+                                decoration: BoxDecoration(
+                                  color: UniSoundColor.wh,
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    width: 3,
+                                    color: UniSoundColor.black,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                    left: 10,
+                                    right: 10,
+                                    bottom: 10,
+                                  ),
+                                  child: TextField(
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: null,
+                                    expands: true,
+                                    onChanged: (value) async {
+                                      scanskujpController.text =
+                                          convertskuth(value);
+                                      List<String> getlistsku =
+                                          scanskujpController.text.split(' ');
+                                      listsku = getlistsku.toSet().toList();
+                                      listsku.removeWhere((item) => item == '');
+                                      if (listsku.isNotEmpty) {
+                                        if (skumemory.isNotEmpty) {
+                                          if (listsku.last != skumemory.last) {
+                                            await lookuptoskureadytocall();
+                                          }
+                                        } else {
+                                          await lookuptoskureadytocall();
+                                        }
+                                      }
+                                    },
+                                    controller: scanskujpController,
+                                    style: GoogleFonts.robotoCondensed(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 18,
+                                      color: UniSoundColor.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "SKU TH",
+                                      hintStyle: GoogleFonts.robotoCondensed(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 18,
+                                        color: UniSoundColor.black,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -422,7 +559,7 @@ class _CheckstockwidgetState extends State<Checkstockwidget> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 10, bottom: 10, left: 40),
+                              top: 10, bottom: 10, left: 10),
                           child: Text(
                             "RESULTs",
                             style: GoogleFonts.robotoCondensed(
