@@ -68,4 +68,23 @@ class ItemdetailModel {
 
     return result;
   }
+
+  bool get checkElementForget {
+    bool result = true;
+
+    if (imgurl == '') {
+      result = false;
+    }
+    if (itemmname == '') {
+      result = false;
+    }
+    if (skujp == '') {
+      result = false;
+    }
+    if (skuth == '') {
+      result = false;
+    }
+
+    return result;
+  }
 }

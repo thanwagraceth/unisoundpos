@@ -9,6 +9,9 @@ class PaymentdetailModel {
   String channelads;
   String telmember;
   bool thisitemsale;
+  bool thisisjunk;
+  bool getwheeldiscount;
+  int wheeldiscountnumber;
 
   PaymentdetailModel({
     required this.solddate,
@@ -21,6 +24,9 @@ class PaymentdetailModel {
     required this.channelads,
     required this.telmember,
     required this.thisitemsale,
+    required this.thisisjunk,
+    required this.getwheeldiscount,
+    required this.wheeldiscountnumber,
   });
 
   factory PaymentdetailModel.newModel() {
@@ -35,6 +41,9 @@ class PaymentdetailModel {
       channelads: '',
       telmember: '',
       thisitemsale: false,
+      thisisjunk: false,
+      getwheeldiscount: false,
+      wheeldiscountnumber: 0,
     );
   }
 
@@ -47,9 +56,6 @@ class PaymentdetailModel {
       result = false;
     }
     if (saleprice == 0) {
-      result = false;
-    }
-    if (serialnum == '') {
       result = false;
     }
     if (skujp == '') {

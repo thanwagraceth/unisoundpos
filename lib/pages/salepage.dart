@@ -56,7 +56,10 @@ class _SalePageState extends State<SalePage> {
   TextEditingController scancodecontroller = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController telmemberController = TextEditingController();
+  TextEditingController wheeldiscountController = TextEditingController();
   bool thisitemonsale = false;
+  bool thisisjunk = false;
+  bool getwheeldiscount = false;
   bool customermember = false;
 
   @override
@@ -66,7 +69,7 @@ class _SalePageState extends State<SalePage> {
     getitem = ItemdetailModel.newModel();
     setpayment = PaymentdetailModel.newModel();
     solddateController = "Sold Date";
-
+    wheeldiscountController.text = '';
     super.initState();
   }
 
@@ -78,6 +81,8 @@ class _SalePageState extends State<SalePage> {
     telmemberController.text = '';
     thisitemonsale = false;
     customermember = false;
+    getwheeldiscount = false;
+    wheeldiscountController.text = '';
   }
 
   @override
@@ -179,6 +184,9 @@ class _SalePageState extends State<SalePage> {
                                         bottom: 15,
                                       ),
                                       child: TextFormField(
+                                        inputFormatters: [
+                                          UpperCaseTextFormatter(),
+                                        ],
                                         textAlignVertical:
                                             TextAlignVertical.center,
                                         textAlign: TextAlign.start,
@@ -548,7 +556,7 @@ class _SalePageState extends State<SalePage> {
             child: Container(
               height: 1000,
               decoration: BoxDecoration(
-                color: getitem.checkElement
+                color: getitem.checkElementForget
                     ? UniSoundColor.wh
                     : UniSoundColor.fadeGray,
                 border: Border(
@@ -585,7 +593,7 @@ class _SalePageState extends State<SalePage> {
                               child: Text(
                                 "PAYMENT DETAIL",
                                 style: GoogleFonts.robotoCondensed(
-                                  color: getitem.checkElement
+                                  color: getitem.checkElementForget
                                       ? UniSoundColor.black
                                       : UniSoundColor.reGray,
                                   fontWeight: FontWeight.w900,
@@ -596,7 +604,7 @@ class _SalePageState extends State<SalePage> {
                           ],
                         ),
                       ),
-                      !getitem.checkElement
+                      !getitem.checkElementForget
                           ? Container()
                           : Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1095,6 +1103,152 @@ class _SalePageState extends State<SalePage> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
+                                      bottom: 10, left: 20),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 37,
+                                        child: Text(
+                                          "This product is junk",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 65,
+                                        child: Container(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Checkbox(
+                                            value: thisisjunk,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                thisisjunk = value!;
+                                                setpayment.thisisjunk =
+                                                    thisisjunk;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 20),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Text(
+                                          "Wheel discount",
+                                          style: GoogleFonts.robotoCondensed(
+                                            color: UniSoundColor.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 7,
+                                        child: Container(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Checkbox(
+                                            value: getwheeldiscount,
+                                            onChanged: (value) {
+                                              if (value!) {
+                                                wheeldiscountController.text =
+                                                    "0";
+                                                setpayment.wheeldiscountnumber =
+                                                    int.parse(
+                                                        wheeldiscountController
+                                                            .text);
+                                              } else {
+                                                setpayment.wheeldiscountnumber =
+                                                    0;
+                                                wheeldiscountController.text =
+                                                    "";
+                                              }
+                                              setState(() {
+                                                getwheeldiscount = value;
+                                                setpayment.getwheeldiscount =
+                                                    getwheeldiscount;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 25, right: 25, bottom: 15),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        width: 2,
+                                        color: UniSoundColor.black,
+                                      ),
+                                      color: getwheeldiscount
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      child: TextField(
+                                        readOnly: !getwheeldiscount,
+                                        controller: wheeldiscountController,
+                                        onChanged: (value) {
+                                          if (wheeldiscountController.text !=
+                                              "") {
+                                            setpayment.wheeldiscountnumber =
+                                                int.parse(
+                                                    wheeldiscountController
+                                                        .text);
+                                          } else {
+                                            setpayment.wheeldiscountnumber = 0;
+                                          }
+
+                                          setState(() {});
+                                        },
+                                        keyboardType: TextInputType.text,
+                                        style: GoogleFonts.robotoCondensed(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 18,
+                                          color: UniSoundColor.black,
+                                        ),
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.deny(
+                                              RegExp(r"\s\b|\b\s")),
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                        ],
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "Discount (THB)",
+                                          hintStyle:
+                                              GoogleFonts.robotoCondensed(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 18,
+                                            color: UniSoundColor.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
                                       bottom: 5, left: 20),
                                   child: Row(
                                     crossAxisAlignment:
@@ -1269,17 +1423,36 @@ class _SalePageState extends State<SalePage> {
                                             ),
                                             Expanded(
                                               flex: 85,
-                                              child: Text(
-                                                setpayment.thisitemsale
-                                                    ? "**SALE** ${setpayment.itemmname}"
-                                                    : setpayment.itemmname,
-                                                style:
-                                                    GoogleFonts.robotoCondensed(
-                                                  color: UniSoundColor.black,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 18,
-                                                ),
-                                              ),
+                                              child: setpayment.thisitemsale &&
+                                                      setpayment.thisisjunk
+                                                  ? Text(
+                                                      "**SALE** **JUNK** ${setpayment.itemmname}",
+                                                      style: GoogleFonts
+                                                          .robotoCondensed(
+                                                        color:
+                                                            UniSoundColor.black,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 18,
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      setpayment.thisitemsale
+                                                          ? "**SALE** ${setpayment.itemmname}"
+                                                          : setpayment
+                                                                  .thisisjunk
+                                                              ? "**JUNK** ${setpayment.itemmname}"
+                                                              : setpayment
+                                                                  .itemmname,
+                                                      style: GoogleFonts
+                                                          .robotoCondensed(
+                                                        color:
+                                                            UniSoundColor.black,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
                                             ),
                                           ],
                                         ),
@@ -1514,6 +1687,54 @@ class _SalePageState extends State<SalePage> {
                                         child: Row(
                                           children: [
                                             Expanded(
+                                              flex: 40,
+                                              child: Text(
+                                                "WHEEL DISCOUNT :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 60,
+                                              child: setpayment
+                                                          .wheeldiscountnumber ==
+                                                      0
+                                                  ? Text(
+                                                      "0 THB (MISS)",
+                                                      style: GoogleFonts
+                                                          .robotoCondensed(
+                                                        color:
+                                                            UniSoundColor.black,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 18,
+                                                      ),
+                                                    )
+                                                  : Text(
+                                                      "${fcomma.format(setpayment.wheeldiscountnumber)} THB",
+                                                      style: GoogleFonts
+                                                          .robotoCondensed(
+                                                        color:
+                                                            UniSoundColor.black,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
                                               flex: 15,
                                               child: Text(
                                                 "MEMBER :  ",
@@ -1644,6 +1865,17 @@ class _SalePageState extends State<SalePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
     );
   }
 }
