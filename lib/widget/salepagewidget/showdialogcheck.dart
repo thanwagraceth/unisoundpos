@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget resultdialogcheck() {
-  String wordresult = "";
+  String wordresult = "จ๊ะเอ๊..ตัวเอง..ท่านผู้เจริญ! ส่ง summary เมื่อวานก่อน";
   return Dialog(
     child: SizedBox(
       width: 800,
