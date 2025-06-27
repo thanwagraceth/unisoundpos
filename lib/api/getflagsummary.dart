@@ -7,8 +7,7 @@ Future<bool> getflgchecksheet() async {
   Response resp = await http.get(Uri.parse(
     'https://uni-sound-euclid-viiamocvka-an.a.run.app/api/getflagsalesummary',
   ));
-  dynamic jsonResp = jsonDecode(resp.body);
-  if (jsonResp.toString() == "true") {
+  if (resp.body.toString() == "true") {
     return true;
   } else {
     return false;

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:unisoundpos/api/getflagsummary.dart';
 import 'package:unisoundpos/controller/confirmpayment_controller.dart';
 import 'package:unisoundpos/controller/scancodegetdetail_controller.dart';
 import 'package:unisoundpos/model/itemdetail_model.dart';
@@ -13,6 +14,7 @@ import 'package:unisoundpos/utility/senddatatousb.dart';
 import 'package:unisoundpos/widget/drawermenucustom.dart';
 import 'package:unisoundpos/widget/loading_widget.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:unisoundpos/widget/salepagewidget/showdialogcheck.dart';
 import 'package:unisoundpos/widget/salepagewidget/showdialogconfirmpayment.dart';
 
 class SalePage extends StatefulWidget {
@@ -55,7 +57,6 @@ class _SalePageState extends State<SalePage> {
     'Shopify',
     'Shopee',
     'Lazada',
-    'Shopify'
   ];
 
   /// VARIABLE INPUT
@@ -1908,29 +1909,40 @@ class _SalePageState extends State<SalePage> {
                                                 setState(() {
                                                   loadingsummary = true;
                                                 });
-                                                bool resultconfrim =
-                                                    await confirmpaymentController(
-                                                        setpayment);
-                                                if (resultconfrim) {
-                                                  sendcommandopendrawer();
-                                                  scancodecontroller.text = '';
-                                                  getitem = ItemdetailModel
-                                                      .newModel();
-                                                  setpayment =
-                                                      PaymentdetailModel
-                                                          .newModel();
-                                                  clearInputPaymentPart();
+                                                bool resultcheck =
+                                                    await getflgchecksheet();
+                                                if (resultcheck) {
+                                                  bool resultconfrim =
+                                                      await confirmpaymentController(
+                                                          setpayment);
+                                                  if (resultconfrim) {
+                                                    sendcommandopendrawer();
+                                                    scancodecontroller.text =
+                                                        '';
+                                                    getitem = ItemdetailModel
+                                                        .newModel();
+                                                    setpayment =
+                                                        PaymentdetailModel
+                                                            .newModel();
+                                                    clearInputPaymentPart();
+                                                  }
+                                                  setState(() {
+                                                    loadingsummary = false;
+                                                  });
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return resultdialogconfirmpayment(
+                                                          resultconfrim,
+                                                        );
+                                                      });
+                                                } else {
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return resultdialogcheck();
+                                                      });
                                                 }
-                                                setState(() {
-                                                  loadingsummary = false;
-                                                });
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return resultdialogconfirmpayment(
-                                                        resultconfrim,
-                                                      );
-                                                    });
                                               },
                                               child: Container(
                                                 alignment: Alignment.center,
