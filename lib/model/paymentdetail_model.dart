@@ -12,6 +12,7 @@ class PaymentdetailModel {
   bool thisisjunk;
   bool getwheeldiscount;
   int wheeldiscountnumber;
+  String channelpayment;
 
   PaymentdetailModel({
     required this.solddate,
@@ -27,6 +28,7 @@ class PaymentdetailModel {
     required this.thisisjunk,
     required this.getwheeldiscount,
     required this.wheeldiscountnumber,
+    required this.channelpayment,
   });
 
   factory PaymentdetailModel.newModel() {
@@ -44,12 +46,16 @@ class PaymentdetailModel {
       thisisjunk: false,
       getwheeldiscount: false,
       wheeldiscountnumber: 0,
+      channelpayment: '',
     );
   }
 
   bool get checkElement {
     bool result = true;
     if (channelsale == '') {
+      result = false;
+    }
+    if (channelpayment == '') {
       result = false;
     }
     if (itemmname == '') {

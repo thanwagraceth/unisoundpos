@@ -32,11 +32,12 @@ Future<bool> salesreporteucild(PaymentdetailModel setpayment) async {
       adsprefix = '';
   }
   Response resp = await http.get(Uri.parse(
-    'https://uni-sound-euclid-viiamocvka-an.a.run.app/api/pos/salesreport?solddate=$changesolddateformat&itemname=${setpayment.itemmname}&skuth=${setpayment.skuth}&skujp=${setpayment.skujp}&serial=${setpayment.serialnum}&price=${setpayment.saleprice}&channel=${setpayment.channelsale}&ads=$adsprefix&member=${setpayment.telmember}&sale=${setpayment.thisitemsale}&junk=${setpayment.thisisjunk}&wheelflag=${setpayment.getwheeldiscount}&wheeldiscount=${setpayment.wheeldiscountnumber}',
+    'https://uni-sound-euclid-viiamocvka-an.a.run.app/api/pos/salesreport?solddate=$changesolddateformat&itemname=${setpayment.itemmname}&skuth=${setpayment.skuth}&skujp=${setpayment.skujp}&serial=${setpayment.serialnum}&price=${setpayment.saleprice}&channel=${setpayment.channelsale}&ads=$adsprefix&member=${setpayment.telmember}&sale=${setpayment.thisitemsale}&junk=${setpayment.thisisjunk}&wheelflag=${setpayment.getwheeldiscount}&wheeldiscount=${setpayment.wheeldiscountnumber}&paymentchannel=${setpayment.channelpayment}',
   ));
   if (resp.statusCode == 200) {
     resultcallback = true;
   }
   print(resp.body);
+
   return resultcallback;
 }

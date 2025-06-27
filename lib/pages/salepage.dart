@@ -48,10 +48,20 @@ class _SalePageState extends State<SalePage> {
     'Lazada',
     'Google'
   ];
+  List<String> channelPayment = <String>[
+    'Cash',
+    'Credit card',
+    'Bank tranfers',
+    'Shopify',
+    'Shopee',
+    'Lazada',
+    'Shopify'
+  ];
 
   /// VARIABLE INPUT
   String? channelSaleListValue;
   String? channelAdvListValue;
+  String? channelPaymentValue;
   late String solddateController;
   TextEditingController scancodecontroller = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -76,6 +86,7 @@ class _SalePageState extends State<SalePage> {
   clearInputPaymentPart() {
     channelSaleListValue = null;
     channelAdvListValue = null;
+    channelPaymentValue = null;
     solddateController = "Sold Date";
     priceController.text = '';
     telmemberController.text = '';
@@ -1007,6 +1018,94 @@ class _SalePageState extends State<SalePage> {
                                   padding: const EdgeInsets.only(
                                       bottom: 5, left: 20),
                                   child: Text(
+                                    "Payment Channel",
+                                    style: GoogleFonts.robotoCondensed(
+                                      color: UniSoundColor.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: UniSoundColor.wh,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 5,
+                                          left: 25,
+                                          right: 25),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                            width: 2,
+                                            color: UniSoundColor.black,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 10, left: 10),
+                                          child: SizedBox(
+                                            height: 40.0,
+                                            child: DropdownButton<String>(
+                                              hint: Text(
+                                                "Payment Channel",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              isExpanded: true,
+                                              value: channelPaymentValue,
+                                              icon: Icon(
+                                                Icons.arrow_downward,
+                                                color: UniSoundColor.black,
+                                              ),
+                                              elevation: 16,
+                                              style:
+                                                  GoogleFonts.robotoCondensed(
+                                                color: UniSoundColor.black,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 18,
+                                              ),
+                                              underline: Container(
+                                                height: 2,
+                                                color: UniSoundColor.wh,
+                                              ),
+                                              onChanged: (String? value) {
+                                                setState(() {
+                                                  channelPaymentValue = value!;
+                                                  setpayment.channelpayment =
+                                                      channelPaymentValue!;
+                                                });
+                                              },
+                                              items: channelPayment.map<
+                                                      DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text(value),
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 5, left: 20),
+                                  child: Text(
                                     "Sold Price",
                                     style: GoogleFonts.robotoCondensed(
                                       color: UniSoundColor.black,
@@ -1606,6 +1705,38 @@ class _SalePageState extends State<SalePage> {
                                               flex: 70,
                                               child: Text(
                                                 setpayment.serialnum,
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 5, left: 20),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              flex: 30,
+                                              child: Text(
+                                                "PAYMENT CHANNEL :  ",
+                                                style:
+                                                    GoogleFonts.robotoCondensed(
+                                                  color: UniSoundColor.black,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 70,
+                                              child: Text(
+                                                setpayment.channelpayment,
                                                 style:
                                                     GoogleFonts.robotoCondensed(
                                                   color: UniSoundColor.black,

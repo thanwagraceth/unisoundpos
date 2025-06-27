@@ -12,7 +12,11 @@ Future<ItemdetailModel> scancodegetdetailController(String scansku) async {
     imgurl: getimgurl,
     itemdetail: getitemdetail['itemdetail'],
     itemmname: getitemdetail['itemname'],
-    price: int.parse(getitemdetail['price'].toString().split('.')[0]),
+    price: int.parse(getitemdetail['price']
+        .toString()
+        .split('.')[0]
+        .replaceAll(',', "")
+        .replaceAll('฿', "")),
     serialnum: getitemdetail['serialnumber'],
     skujp: getskujp,
     skuth: getitemdetail['sku'],
