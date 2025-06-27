@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget resultdialogcheck() {
-  String wordresult = "Please send the sales summary report for yesterday.";
+  String wordresult = "";
   return Dialog(
     child: SizedBox(
       width: 800,
-      height: 200,
+      height: 500,
       child: Container(
         alignment: Alignment.center,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
@@ -25,8 +25,8 @@ Widget resultdialogcheck() {
                 ),
               ),
               Container(
-                height: 120.0,
-                width: 120.0,
+                height: 250.0,
+                width: 250.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: const DecorationImage(

@@ -1937,6 +1937,9 @@ class _SalePageState extends State<SalePage> {
                                                         );
                                                       });
                                                 } else {
+                                                  setState(() {
+                                                    loadingsummary = false;
+                                                  });
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
