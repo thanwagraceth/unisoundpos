@@ -40,7 +40,7 @@ class _SalePageState extends State<SalePage> {
     'Instagram Customer',
     'Facebook Customer',
     'Line Customer',
-    'Contractor Customer',
+    'Contractor',
   ];
   List<String> channelAdvList = <String>[
     'Not specified',
