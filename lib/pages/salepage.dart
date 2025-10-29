@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:unisoundpos/api/getflagsummary.dart';
+import 'package:unisoundpos/api/getvaluesummary.dart';
 import 'package:unisoundpos/controller/confirmpayment_controller.dart';
 import 'package:unisoundpos/controller/scancodegetdetail_controller.dart';
 import 'package:unisoundpos/model/itemdetail_model.dart';
@@ -1910,8 +1911,11 @@ class _SalePageState extends State<SalePage> {
                                                 setState(() {
                                                   loadingsummary = true;
                                                 });
+                                                //bool resultcheck =
+                                                //    await getflgchecksheet();
                                                 bool resultcheck =
-                                                    await getflgchecksheet();
+                                                    await getvaluechecksheet(
+                                                        setpayment);
                                                 if (resultcheck) {
                                                   bool resultconfrim =
                                                       await confirmpaymentController(
