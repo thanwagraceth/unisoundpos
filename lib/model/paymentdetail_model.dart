@@ -13,6 +13,7 @@ class PaymentdetailModel {
   bool getwheeldiscount;
   int wheeldiscountnumber;
   String channelpayment;
+  int feeplatformprice;
 
   PaymentdetailModel({
     required this.solddate,
@@ -29,6 +30,7 @@ class PaymentdetailModel {
     required this.getwheeldiscount,
     required this.wheeldiscountnumber,
     required this.channelpayment,
+    required this.feeplatformprice,
   });
 
   factory PaymentdetailModel.newModel() {
@@ -47,6 +49,7 @@ class PaymentdetailModel {
       getwheeldiscount: false,
       wheeldiscountnumber: 0,
       channelpayment: '',
+      feeplatformprice: 0,
     );
   }
 
@@ -73,7 +76,13 @@ class PaymentdetailModel {
     if (solddate == '') {
       result = false;
     }
-
+    if (channelsale == "Shopee Customer" ||
+        channelsale == "Lazada Customer" ||
+        channelsale == "TikTok Customer") {
+      if (feeplatformprice == 0) {
+        result = false;
+      }
+    }
     return result;
   }
 }

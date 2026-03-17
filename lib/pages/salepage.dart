@@ -41,6 +41,7 @@ class _SalePageState extends State<SalePage> {
     'Instagram Customer',
     'Facebook Customer',
     'Line Customer',
+    'TikTok Customer',
     'Contractor',
   ];
   List<String> channelAdvList = <String>[
@@ -50,7 +51,8 @@ class _SalePageState extends State<SalePage> {
     'Shopify',
     'Shopee',
     'Lazada',
-    'Google'
+    'Google',
+    'TikTok',
   ];
   List<String> channelPayment = <String>[
     'Cash',
@@ -59,6 +61,7 @@ class _SalePageState extends State<SalePage> {
     'Shopify',
     'Shopee',
     'Lazada',
+    'TikTok',
   ];
 
   /// VARIABLE INPUT
@@ -68,6 +71,7 @@ class _SalePageState extends State<SalePage> {
   late String solddateController;
   TextEditingController scancodecontroller = TextEditingController();
   TextEditingController priceController = TextEditingController();
+  TextEditingController platformfeepriceController = TextEditingController();
   TextEditingController telmemberController = TextEditingController();
   TextEditingController wheeldiscountController = TextEditingController();
   bool thisitemonsale = false;
@@ -92,6 +96,7 @@ class _SalePageState extends State<SalePage> {
     channelPaymentValue = null;
     solddateController = "Sold Date";
     priceController.text = '';
+    platformfeepriceController.text = '';
     telmemberController.text = '';
     thisitemonsale = false;
     customermember = false;
@@ -1166,6 +1171,95 @@ class _SalePageState extends State<SalePage> {
                                     ),
                                   ),
                                 ),
+                                channelSaleListValue == "Shopee Customer" ||
+                                        channelSaleListValue ==
+                                            'TikTok Customer' ||
+                                        channelSaleListValue ==
+                                            'Lazada Customer'
+                                    ? Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 5, left: 20),
+                                            child: Text(
+                                              "Platform Fee Price",
+                                              style:
+                                                  GoogleFonts.robotoCondensed(
+                                                color: UniSoundColor.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 25,
+                                                right: 25,
+                                                bottom: 15),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                border: Border.all(
+                                                  width: 2,
+                                                  color: UniSoundColor.black,
+                                                ),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 10, right: 10),
+                                                child: TextField(
+                                                  onChanged: (value) {
+                                                    if (value != '') {
+                                                      setpayment
+                                                              .feeplatformprice =
+                                                          int.parse(
+                                                              platformfeepriceController
+                                                                  .text);
+                                                      setState(() {});
+                                                    }
+                                                  },
+                                                  controller:
+                                                      platformfeepriceController,
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                  style: GoogleFonts
+                                                      .robotoCondensed(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 18,
+                                                    color: UniSoundColor.black,
+                                                  ),
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter
+                                                        .deny(RegExp(
+                                                            r"\s\b|\b\s")),
+                                                    FilteringTextInputFormatter
+                                                        .digitsOnly,
+                                                  ],
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText:
+                                                        "Platform Fee Price",
+                                                    hintStyle: GoogleFonts
+                                                        .robotoCondensed(
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 18,
+                                                      color:
+                                                          UniSoundColor.black,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Container(),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       bottom: 10, left: 20),
@@ -1655,6 +1749,49 @@ class _SalePageState extends State<SalePage> {
                                           ],
                                         ),
                                       ),
+                                      channelSaleListValue ==
+                                                  "Shopee Customer" ||
+                                              channelSaleListValue ==
+                                                  'TikTok Customer' ||
+                                              channelSaleListValue ==
+                                                  'Lazada Customer'
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 5, left: 20),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 25,
+                                                    child: Text(
+                                                      "PLATFOM FEE PRICE :  ",
+                                                      style: GoogleFonts
+                                                          .robotoCondensed(
+                                                        color:
+                                                            UniSoundColor.black,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 75,
+                                                    child: Text(
+                                                      "${fcomma.format(setpayment.feeplatformprice)} THB",
+                                                      style: GoogleFonts
+                                                          .robotoCondensed(
+                                                        color:
+                                                            UniSoundColor.black,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        fontSize: 18,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          : Container(),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             bottom: 5, left: 20),
