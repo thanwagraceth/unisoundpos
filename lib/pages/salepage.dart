@@ -2053,6 +2053,7 @@ class _SalePageState extends State<SalePage> {
                                                 bool resultcheck =
                                                     await getvaluechecksheet(
                                                         setpayment);
+                                                //print(resultcheck);
                                                 if (resultcheck) {
                                                   bool resultconfrim =
                                                       await confirmpaymentController(
@@ -2066,7 +2067,6 @@ class _SalePageState extends State<SalePage> {
                                                     setpayment =
                                                         PaymentdetailModel
                                                             .newModel();
-                                                    clearInputPaymentPart();
                                                   }
                                                   setState(() {
                                                     loadingsummary = false;
@@ -2078,6 +2078,7 @@ class _SalePageState extends State<SalePage> {
                                                           resultconfrim,
                                                         );
                                                       });
+                                                  clearInputPaymentPart();
                                                 } else {
                                                   setState(() {
                                                     loadingsummary = false;
