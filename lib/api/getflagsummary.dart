@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 Future<bool> getflgchecksheet() async {
   Response resp = await http.get(Uri.parse(
-    'https://uni-sound-euclid-viiamocvka-an.a.run.app/api/getflagsalesummary',
+    'https://uni-sound-euclid-viiamocvka-eu.a.run.app/api/getflagsalesummary',
   ));
   if (resp.body.toString() == "true") {
     return true;

@@ -367,7 +367,7 @@ class _GenqrcodetoshopifyState extends State<Genqrcodetoshopify> {
                                                   skureadytocall);
                                           if (result.statusCode == 200) {
                                             receivepdfurl =
-                                                "https://uni-sound-euclid-viiamocvka-an.a.run.app/api/productqr.pdf";
+                                                "https://uni-sound-euclid-viiamocvka-eu.a.run.app/api/productqr.pdf";
                                           } else {
                                             showDialog(
                                               context: context,

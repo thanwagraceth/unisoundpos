@@ -4,7 +4,7 @@ import 'package:unisoundpos/model/paymentdetail_model.dart';
 
 Future<bool> getvaluechecksheet(PaymentdetailModel paymentset) async {
   Response resp = await http.get(Uri.parse(
-    'https://uni-sound-euclid-viiamocvka-an.a.run.app/api/getvaluesummary',
+    'https://uni-sound-euclid-viiamocvka-eu.a.run.app/api/getvaluesummary',
   ));
   // 27/10/2025
   String getdatefromsheet = resp.body.toString();

@@ -367,7 +367,7 @@ class _ReprintbarcodeState extends State<Reprintbarcode> {
                                                   skureadytocall);
                                           if (result.statusCode == 200) {
                                             receivepdfurl =
-                                                "https://uni-sound-euclid-viiamocvka-an.a.run.app/api/reprintbarcode.pdf";
+                                                "https://uni-sound-euclid-viiamocvka-eu.a.run.app/api/reprintbarcode.pdf";
                                           } else {
                                             showDialog(
                                               context: context,

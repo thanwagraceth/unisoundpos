@@ -359,7 +359,7 @@ class _ReceivewidgetState extends State<Receivewidget> {
                                                 listskujp, startsku);
                                         if (resultconfrim.statusCode == 200) {
                                           receivepdfurl =
-                                              "https://uni-sound-euclid-viiamocvka-an.a.run.app/api/barcodelist.pdf";
+                                              "https://uni-sound-euclid-viiamocvka-eu.a.run.app/api/barcodelist.pdf";
                                           result = true;
                                         }
                                         setState(() {

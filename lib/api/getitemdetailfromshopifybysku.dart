@@ -3,9 +3,13 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
+// Endpoint
+// Tokyo : uni-sound-euclid-viiamocvka-eu.a.run.app
+// Bangkok : uni-sound-euclid-viiamocvka-eu.a.run.app
+
 Future<Map> getitemdetailfromshopifybysku(String scansku) async {
   Response resp = await http.get(Uri.parse(
-    'https://uni-sound-euclid-viiamocvka-an.a.run.app/getitemdetailfromshopifybysku_$scansku',
+    'https://uni-sound-euclid-viiamocvka-eu.a.run.app/getitemdetailfromshopifybysku_$scansku',
   ));
   dynamic jsonResp = jsonDecode(resp.body);
   return jsonResp;

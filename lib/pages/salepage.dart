@@ -2071,6 +2071,7 @@ class _SalePageState extends State<SalePage> {
                                                   setState(() {
                                                     loadingsummary = false;
                                                   });
+                                                  clearInputPaymentPart();
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
@@ -2078,7 +2079,6 @@ class _SalePageState extends State<SalePage> {
                                                           resultconfrim,
                                                         );
                                                       });
-                                                  clearInputPaymentPart();
                                                 } else {
                                                   setState(() {
                                                     loadingsummary = false;
