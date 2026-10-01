@@ -52,12 +52,12 @@ class _LoginpinState extends State<Loginpin> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    FaIcon(
                       FontAwesomeIcons.caretRight,
                       color: UniSoundColor.wh,
                       size: 20,
                     ),
-                    Icon(
+                    FaIcon(
                       FontAwesomeIcons.caretRight,
                       color: UniSoundColor.wh,
                       size: 20,
@@ -76,12 +76,12 @@ class _LoginpinState extends State<Loginpin> {
                         ),
                       ),
                     ),
-                    Icon(
+                    FaIcon(
                       FontAwesomeIcons.caretLeft,
                       color: UniSoundColor.wh,
                       size: 20,
                     ),
-                    Icon(
+                    FaIcon(
                       FontAwesomeIcons.caretLeft,
                       color: UniSoundColor.wh,
                       size: 20,

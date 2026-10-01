@@ -56,7 +56,7 @@ class _GenqrcodetoshopifyState extends State<Genqrcodetoshopify> {
               padding: const EdgeInsets.only(left: 30, top: 30, bottom: 20),
               child: Row(
                 children: [
-                  Icon(
+                  FaIcon(
                     FontAwesomeIcons.qrcode,
                     size: 40,
                     color: UniSoundColor.black,

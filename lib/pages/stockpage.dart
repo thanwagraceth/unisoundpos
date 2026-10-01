@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:unisoundpos/style/color_unisound.dart';
+import 'package:unisoundpos/widget/Listinshopeelazadawidget/Listinshopeelazada.dart';
 import 'package:unisoundpos/widget/drawermenucustom.dart';
 import 'package:unisoundpos/widget/stockpagewidget/checkstockwidget.dart';
 import 'package:unisoundpos/widget/stockpagewidget/genqrcodetoshopify.dart';
@@ -37,6 +38,8 @@ class _StockPageState extends State<StockPage> {
         return const Reprintbarcode();
       case 5:
         return const Genqrcodetoshopify();
+      case 6:
+        return const Listingshopeelazadawidget();
       default:
         return const Updatestatuswidget();
     }
@@ -87,7 +90,7 @@ class _StockPageState extends State<StockPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            FaIcon(
                               FontAwesomeIcons.caretRight,
                               size: 30,
                               color: UniSoundColor.wh,
@@ -122,7 +125,7 @@ class _StockPageState extends State<StockPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            FaIcon(
                               FontAwesomeIcons.caretRight,
                               size: 30,
                               color: UniSoundColor.wh,
@@ -157,7 +160,7 @@ class _StockPageState extends State<StockPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            FaIcon(
                               FontAwesomeIcons.caretRight,
                               size: 30,
                               color: UniSoundColor.wh,
@@ -192,7 +195,7 @@ class _StockPageState extends State<StockPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            FaIcon(
                               FontAwesomeIcons.caretRight,
                               size: 30,
                               color: UniSoundColor.wh,
@@ -227,13 +230,48 @@ class _StockPageState extends State<StockPage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            FaIcon(
                               FontAwesomeIcons.caretRight,
                               size: 30,
                               color: UniSoundColor.wh,
                             ),
                             Text(
                               "GEN QRCODE SHOPIFY",
+                              style: GoogleFonts.robotoCondensed(
+                                color: UniSoundColor.wh,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        currectlyselect = 6;
+                      });
+                    },
+                    child: Container(
+                      height: 80,
+                      color: currectlyselect == 6
+                          ? UniSoundColor.rePurple
+                          : UniSoundColor.reGray,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.caretRight,
+                              size: 30,
+                              color: UniSoundColor.wh,
+                            ),
+                            Text(
+                              "LISING SHOPEE & LAZADA",
                               style: GoogleFonts.robotoCondensed(
                                 color: UniSoundColor.wh,
                                 fontWeight: FontWeight.w900,

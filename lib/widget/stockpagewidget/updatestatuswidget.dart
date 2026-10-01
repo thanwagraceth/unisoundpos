@@ -107,7 +107,7 @@ class _UpdatestatuswidgetState extends State<Updatestatuswidget> {
               padding: const EdgeInsets.only(left: 30, top: 30, bottom: 20),
               child: Row(
                 children: [
-                  Icon(
+                  FaIcon(
                     FontAwesomeIcons.repeat,
                     size: 40,
                     color: UniSoundColor.black,

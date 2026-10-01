@@ -18,13 +18,13 @@ class _ResponcheckstockState extends State<Responcheckstock> {
 
   drfineicon(bool iconin) {
     if (callbackstatus) {
-      showicon = const Icon(
+      showicon = const FaIcon(
         FontAwesomeIcons.checkCircle,
         color: Colors.green,
         size: 18,
       );
     } else {
-      showicon = const Icon(
+      showicon = const FaIcon(
         FontAwesomeIcons.circleXmark,
         color: Colors.red,
         size: 18,
@@ -35,7 +35,7 @@ class _ResponcheckstockState extends State<Responcheckstock> {
   @override
   void initState() {
     callbackstatus = widget.resultin.result;
-    showicon = const Icon(
+    showicon = const FaIcon(
       FontAwesomeIcons.circleXmark,
       color: Colors.red,
       size: 18,

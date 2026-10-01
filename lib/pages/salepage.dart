@@ -147,7 +147,7 @@ class _SalePageState extends State<SalePage> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  FaIcon(
                                     FontAwesomeIcons.caretRight,
                                     size: 40,
                                     color: UniSoundColor.rePurple,
@@ -360,7 +360,7 @@ class _SalePageState extends State<SalePage> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                 child: getitem.imgurl == ''
-                                    ? const Icon(
+                                    ? const FaIcon(
                                         FontAwesomeIcons.image,
                                         color: Colors.white,
                                         size: 50,
@@ -602,7 +602,7 @@ class _SalePageState extends State<SalePage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            FaIcon(
                               FontAwesomeIcons.caretRight,
                               size: 40,
                               color: UniSoundColor.rePurple,
@@ -1573,7 +1573,7 @@ class _SalePageState extends State<SalePage> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  FaIcon(
                                     FontAwesomeIcons.caretRight,
                                     size: 40,
                                     color: UniSoundColor.rePurple,
