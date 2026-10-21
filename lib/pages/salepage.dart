@@ -2058,20 +2058,20 @@ class _SalePageState extends State<SalePage> {
                                                   bool resultconfrim =
                                                       await confirmpaymentController(
                                                           setpayment);
-                                                  if (resultconfrim) {
-                                                    sendcommandopendrawer();
-                                                    scancodecontroller.text =
-                                                        '';
-                                                    getitem = ItemdetailModel
-                                                        .newModel();
-                                                    setpayment =
-                                                        PaymentdetailModel
-                                                            .newModel();
-                                                  }
+                                                  //if (resultconfrim) {
+                                                  sendcommandopendrawer();
+                                                  scancodecontroller.text =
+                                                      '';
+                                                  getitem = ItemdetailModel
+                                                      .newModel();
+                                                  setpayment =
+                                                      PaymentdetailModel
+                                                          .newModel();
+                                                  //}
+                                                  clearInputPaymentPart();
                                                   setState(() {
                                                     loadingsummary = false;
                                                   });
-                                                  clearInputPaymentPart();
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
